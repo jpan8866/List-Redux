@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import allActions from '../actions/postActions';
 
 function Postform() {
+    // the below states are used to show user input in the input boxes
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-
+    const dispatch = useDispatch();
+    
     const onSubmit = async (e) => {
         e.preventDefault();
 
@@ -12,17 +16,20 @@ function Postform() {
             body: body
         }
         // send post to backend (fake)
-        const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(post)
-        })
+        // const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        //     method: 'POST',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(post)
+        // })
 
-        // log the res
-        const data = await res.json();
-        console.log(data);
+        // // log the res
+        // const data = await res.json();
+        // console.log(data);
+
+        // REPLACED ABOVE WITH BELOW TO WORK WITH REDUX
+        dispatch(allActions.createPost(post));
 
         // reset the UI input boxes to empty
         setTitle('');

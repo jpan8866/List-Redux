@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { FETCH_POSTS, NEW_POST } from '../actions/types';
-import fetchPosts from '../actions/postAction';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import allActions from '../actions/postActions';
 
 function Posts() {
     // posts will eventually come from redux (application state from the store)
@@ -18,11 +17,11 @@ function Posts() {
 
     useEffect(() => {
         console.log('dispatching')
-        dispatch(fetchPosts());
+        dispatch(allActions.fetchPosts());
         console.log('dispatched');
     }, []);
 
-    const posts = useSelector((state) => state.posts.items);
+    const posts = useSelector((state) => state.posts);
 
     return (
         <div>

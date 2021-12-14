@@ -17,7 +17,31 @@ const fetchPosts = () => {
     }
 
 }
-export default fetchPosts;
+
+const createPost = (postData) => async dispatch => {
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    })
+
+    // log the res
+    const post = await res.json();
+    console.log(post);
+    return dispatch({
+        type: NEW_POST,
+        payload: post
+    })
+}
+
+const allActions = {
+    fetchPosts,
+    createPost
+}
+
+export default allActions;
 
 
 /* Not using hooks (from tutorial):
